@@ -11,19 +11,17 @@
         <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
         <link rel="stylesheet" href="./resources/qgis2web.css">
         <style>
-        html, body, #map {
+        html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: #ffffff;
         }
         #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
+            height: 100%;
         }
         .ol-control > * {
             background-color: #f8f8f8!important;
@@ -42,16 +40,9 @@
         .ol-control {
             background-color: rgba(255,255,255,.4) !important;
             padding: 2px !important;
-        }
-        .ol-scale-line {
-            background: rgba(255,255,255,.4);
-        }
-        .ol-scale-line-inner {
-            color: #444444;
-            border-color: #444444;
-        }
+        } 
         </style>
-        <title></title>
+        <title>Web Map</title>
     </head>
     <body>
         <div id="map">
@@ -60,36 +51,19 @@
                 <div id="popup-content"></div>
             </div>
         </div>
-        <!-- Scripts aquí... -->
-        <script>
-        window.addEventListener('load', function() {
-            if (typeof map !== 'undefined' && map.getView && map.getLayers) {
-                var extent = ol.extent.createEmpty();
-                map.getLayers().forEach(function(layer) {
-                    if (layer.getSource().getExtent) {
-                        ol.extent.extend(extent, layer.getSource().getExtent());
-                    }
-                });
-                map.getView().fit(extent, { 
-                    padding: [50, 50, 50, 50], 
-                    maxZoom: 18,
-                    duration: 1000
-                });
-                
-                // Ajustar la posición de la leyenda
-                var layerSwitcher = document.querySelector('.layer-switcher');
-                if (layerSwitcher) {
-                    layerSwitcher.style.top = '10px';
-                    layerSwitcher.style.right = '10px';
-                }
-            }
-        });
-
-        window.addEventListener('resize', function() {
-            if (typeof map !== 'undefined' && map.updateSize) {
-                map.updateSize();
-            }
-        });
-        </script>
+        <script src="resources/qgis2web_expressions.js"></script>
+        <script src="resources/polyfills.js"></script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol.js"></script>
+        <script src="./resources/ol-layerswitcher.js"></script>
+        <script src="layers/Actores_1.js"></script>
+        <script src="layers/Residuos_2.js"></script>
+        <script src="layers/escenarios_3.js"></script>
+        <script src="styles/Actores_1_style.js"></script>
+        <script src="styles/Residuos_2_style.js"></script>
+        <script src="styles/escenarios_3_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/Autolinker.min.js"></script>
+        <script src="./resources/qgis2web.js"></script>
     </body>
 </html>
